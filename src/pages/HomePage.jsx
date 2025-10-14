@@ -1,13 +1,18 @@
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { Header } from "../components/Header";
-import { products } from "../../starting-code/data/products"; //Hardcoded data for products list (we won't be using this in the final version)
 import "./HomePage.css";
 
 function HomePage() {
-  axios.get("http://localhost:3000/api/products")
-    .then((response) => {      
-      console.log(response.data);
-    });
+  const [products, setProducts] = useState([]);           // State to hold products fetched from API
+
+  useEffect(() => {
+    axios.get("http://localhost:3000/api/products")
+      .then((response) => {      
+        setProducts(response.data);                       // Update state with fetched products << array of products
+      });
+  }, []);
+  
   
     
 
