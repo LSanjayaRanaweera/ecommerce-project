@@ -3,6 +3,19 @@ import { products } from "../../starting-code/data/products"; //Hardcoded data f
 import "./HomePage.css";
 
 function HomePage() {
+  fetch("http://localhost:3000/api/products")
+    .then((response) => {
+      //console.log(response);
+      return response.json();
+    })
+    .then((data) => {
+      //console.log(data);
+      console.log(data)
+    });
+  
+    
+
+
   return (
     <>
       <title>Ecommerce project</title>
