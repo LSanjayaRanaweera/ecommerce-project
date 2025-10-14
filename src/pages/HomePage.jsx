@@ -1,16 +1,12 @@
+import axios from "axios";
 import { Header } from "../components/Header";
 import { products } from "../../starting-code/data/products"; //Hardcoded data for products list (we won't be using this in the final version)
 import "./HomePage.css";
 
 function HomePage() {
-  fetch("http://localhost:3000/api/products")
-    .then((response) => {
-      //console.log(response);
-      return response.json();
-    })
-    .then((data) => {
-      //console.log(data);
-      console.log(data)
+  axios.get("http://localhost:3000/api/products")
+    .then((response) => {      
+      console.log(response.data);
     });
   
     
