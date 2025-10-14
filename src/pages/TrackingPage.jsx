@@ -1,4 +1,4 @@
-import './header.css'
+import '../components/Header'
 import './TrackingPage.css'
 
 function TrackingPage() {
