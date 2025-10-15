@@ -15,7 +15,8 @@ function App() {
   //Note: cart == array of cart items (not a single cart item/product). Each cart item has a productId and <quantity!!
 
   useEffect(() => {
-    axios.get("/api/cart-items")
+    axios.get("/api/cart-items?expand=product")                       // Fetch cart items from API with expanded product details. 
+                                                                      // Added query parameter '?expand=product' to get product details in cart items
       .then((response) => {      
         setCart(response.data);                                       // Update state with fetched cart items << array of carts
       });
