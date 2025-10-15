@@ -8,12 +8,12 @@ function HomePage() {
   const [cart, setCart] = useState([]);                   // State to hold cart items fetched from API
 //Note: cart == array of cart items (not a single cart item/product). Each cart item has a productId and quantity!!
   useEffect(() => {
-    axios.get("http://localhost:3000/api/products")
+    axios.get("/api/products")
       .then((response) => {      
         setProducts(response.data);                       // Update state with fetched products << array of products
       });
 
-    axios.get("http://localhost:3000/api/cart-items")
+    axios.get("/api/cart-items")
       .then((response) => {
         //console.log("Cart items:", response.data);      // Log cart items to console
         setCart(response.data);                           // Update state with fetched cart items << array of carts
