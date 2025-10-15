@@ -1,4 +1,3 @@
-
 import { Routes, Route } from 'react-router'                          // Import Routes for defining <routes></routes>
 import { useEffect, useState } from 'react'                           // Import useEffect and useState hooks from React
 import axios from 'axios'                                             // Import axios for making HTTP requests
@@ -27,7 +26,7 @@ function App() {
     <Routes>
       <Route index element={<HomePage cart={cart} />} />                          {/* Define route for HomePage path="/" same as index */}
       <Route path='/checkout' element={ <CheckoutPage cart={cart} />} />          {/* Define route for CheckoutPage path="/checkout" */} 
-      <Route path='/orders' element={ <OrdersPage />} />              {/* Define route for Orders path="/orders" */}
+      <Route path='/orders' element={ <OrdersPage cart={cart} />} />              {/* Define route for Orders path="/orders" */}
       <Route path='/tracking' element={ <TrackingPage/>} />           {/* Define route for Tracking path="/tracking" */}      
     </Routes>
   )
