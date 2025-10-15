@@ -5,13 +5,20 @@ import "./HomePage.css";
 
 function HomePage() {
   const [products, setProducts] = useState([]);           // State to hold products fetched from API
-
+  const [cart, setCart] = useState([]);                   // State to hold cart items fetched from API
+//Note: cart == array of cart items (not a single cart item/product). Each cart item has a productId and quantity!!
   useEffect(() => {
     axios.get("http://localhost:3000/api/products")
       .then((response) => {      
         setProducts(response.data);                       // Update state with fetched products << array of products
       });
-  }, []);
+
+    axios.get("http://localhost:3000/api/cart-items")
+      .then((response) => {
+        //console.log("Cart items:", response.data);      // Log cart items to console
+        setCart(response.data);                           // Update state with fetched cart items << array of carts
+      });
+  }, []);                                                 // Empty dependency array means this effect runs once on mount  
   
   
     
@@ -20,8 +27,8 @@ function HomePage() {
   return (
     <>
       <title>Ecommerce project</title>
-
-      <Header />
+{/* Quantity of the 'cart' is a header element, using props "cart"={cart} << state variable from above. This needs to be updated in Header.jsx*/}
+      <Header cart={cart}/>
 
       <div className="home-page">
         <div className="products-grid">

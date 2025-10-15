@@ -1,7 +1,17 @@
 import { Link } from 'react-router';
 import './header.css';
 
-export function Header() {
+export function Header({ cart }) {                        //cart is an array of cart items, each cart item has a productId and quantity
+  //Calculating total quantity of items in the cart
+  let totalQuantity = 0;
+
+  for (const item of cart) {
+    totalQuantity += item.quantity;                        //summing up the quantity of each cart item to get total quantity
+  }   
+  /*for..of loop is implemented above << VSCode suggestion, could have used forEach as well to update total items in the cart
+    cart.forEach((cartItem) => {
+      totalQuantity += cartItem.quantity;
+    })*/
   return (
     <div className="header">
       <div className="left-section">
@@ -26,7 +36,7 @@ export function Header() {
 
         <Link className="cart-link header-link" to="/checkout">
           <img className="cart-icon" src="images/icons/cart-icon.png" />
-          <div className="cart-quantity">3</div>
+          <div className="cart-quantity">{totalQuantity}</div>
           <div className="cart-text">Cart</div>
         </Link>
       </div>
@@ -34,7 +44,9 @@ export function Header() {
   );
 }
 
-//updated from <a> to <Link> for client-side routing. 
-//<link> is from react-router package
-//Also updated href to 'to' for <Link> component
+/*
+1. Anchor tags <a> are replaced with <Link> from react-router for client-side routing << for better performance, no full page reloads
+2. to="" attribute is used instead of href in <Link> component
+3  cart quantity is calculated using a for..of loop to sum up the quantity of each cart item
+*/
 
