@@ -4,9 +4,15 @@ import { Header } from "../../components/Header";
 import { ProductGrid } from "./ProductGrid";
 import "./HomePage.css";
 
-function HomePage({ cart }) {
-  const [products, setProducts] = useState([]); // State to hold products fetched from API
-  //Note: cart == array of cart items (not a single cart item/product). Each cart item has a productId and quantity!!
+function HomePage({ cart, loadCart }) {                                  
+  //Lifting state up - passing cart state from HomePage to App.jsx and then to CheckoutPage
+  //So that cart state is available in both HomePage and CheckoutPage                           
+  //Note: cart == array of cart items (not a single cart item/product). Each cart item has TWO properties >> productId and quantity
+  //Note: loadCart function is also passed as prop from App.jsx to HomePage so that we can refresh the cart data after adding an item to the cart
+  //State to hold products fetched from API
+  const [products, setProducts] = useState([]);                           
+  
+
   useEffect(() => {
     const getHomeData = async () => {                                     //defined async function to use await inside it
       const response = await axios.get("/api/products");                  // Fetch products from API
@@ -22,7 +28,7 @@ function HomePage({ cart }) {
       <Header cart={cart} />
 
       <div className="home-page">
-        <ProductGrid products={products} />{" "}
+        <ProductGrid products={products} loadCart={loadCart}/>
         {/* Pass products state as props to ProductGrid component */}
       </div>
     </>
