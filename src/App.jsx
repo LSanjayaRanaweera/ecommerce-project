@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router'                          // Import Routes for defining <routes></routes>
 import { useEffect, useState } from 'react'                           // Import useEffect and useState hooks from React
 import axios from 'axios'                                             // Import axios for making HTTP requests
-import HomePage from './pages/HomePage'
-import { CheckoutPage } from './pages/CheckoutPage'                   // Import CheckoutPage component/destructure
-import OrdersPage from './pages/OrdersPage'
+import HomePage from './pages/home/HomePage'                          // Import HomePage component
+import { CheckoutPage } from './pages/checkout/CheckoutPage'          // Import CheckoutPage component/destructure
+import OrdersPage from './pages/orders/OrdersPage'                 // Import OrdersPage component
 import TrackingPage from './pages/TrackingPage'
 import './App.css'
 
