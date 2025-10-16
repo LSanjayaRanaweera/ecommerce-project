@@ -13,25 +13,16 @@ export function CheckoutPage({ cart }) {
   const [paymentSummary, setPaymentSummary] = useState(null); //To store payment summary details
 
   useEffect(() => {
-    //To fetch delivery options from backend when component mounts
-    axios
-      .get("/api/delivery-options?expand=estimatedDeliveryTime") //Fetch delivery options from backend, "expanding" Query parameter estimatedDelivery details SEE BELOW (2)
-      .then((response) => {
-        setDeliveryOptions(response.data); //Set delivery options state with data from backend
-      })
-      .catch((error) => {
-        console.error("Error fetching delivery options:", error);
-      });
+    const fetchCheckoutData = async () => {
+      // Fetch delivery options from backend with expanded estimated delivery time details
+      let response = await axios.get("/api/delivery-options?expand=estimatedDeliveryTime");
+      setDeliveryOptions(response.data);
+      // Fetch payment summary details from backend
+      response = await axios.get("/api/payment-summary");
+      setPaymentSummary(response.data);    
+    };
 
-    //Fetch payment summary details from backend when component mounts
-    axios
-      .get("/api/payment-summary") //Fetch payment summary from backend
-      .then((response) => {
-        setPaymentSummary(response.data); //Set payment summary state with data from backend
-      })
-      .catch((error) => {
-        console.error("Error fetching payment summary:", error);
-      });
+    fetchCheckoutData();
   }, []);
 
   return (

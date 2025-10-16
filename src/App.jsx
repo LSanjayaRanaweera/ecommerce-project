@@ -14,16 +14,16 @@ function App() {
   //Note: cart == array of cart items (not a single cart item/product). Each cart item has a productId and <quantity!!
 
   useEffect(() => {
-    axios.get("/api/cart-items?expand=product")                       // Fetch cart items from API with expanded product details. 
-                                                                      // Added query parameter '?expand=product' to get product details in cart items
-      .then((response) => {      
-        setCart(response.data);                                       // Update state with fetched cart items << array of carts
-      });
-  }, []);                                                             // Empty dependency array means this effect runs once on mount
+    const fetchAppData = async () => {                                //defined async function to use await inside it
+      const response = await axios.get("/api/cart-items?expand=product")  
+      setCart(response.data);                                      
+    }                                
+    fetchAppData();                                                   // Call the async function to fetch cart items                                   
+  }, []);                                                             
 
 
   return (
-    <Routes>
+    <Routes>  
       <Route index element={<HomePage cart={cart} />} />                          {/* Define route for HomePage path="/" same as index */}
       <Route path='/checkout' element={ <CheckoutPage cart={cart} />} />          {/* Define route for CheckoutPage path="/checkout" */} 
       <Route path='/orders' element={ <OrdersPage cart={cart} />} />              {/* Define route for Orders path="/orders" */}
