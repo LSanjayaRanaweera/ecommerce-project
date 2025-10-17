@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'                           // Import 
 import axios from 'axios'                                             // Import axios for making HTTP requests
 import HomePage from './pages/home/HomePage'                          // Import HomePage component
 import { CheckoutPage } from './pages/checkout/CheckoutPage'          // Import CheckoutPage component/destructure
-import OrdersPage from './pages/orders/OrdersPage'                 // Import OrdersPage component
+import OrdersPage from './pages/orders/OrdersPage'                    // Import OrdersPage component
 import TrackingPage from './pages/TrackingPage'
 import './App.css'
 
@@ -29,8 +29,8 @@ function App() {
 
   return (
     <Routes>  
-      <Route index element={<HomePage cart={cart} loadCart={loadCart}/>} />       {/* Define route for HomePage path="/" same as index */}
-      <Route path='/checkout' element={ <CheckoutPage cart={cart} />} />          {/* Define route for CheckoutPage path="/checkout" */} 
+      <Route index element={<HomePage cart={cart} loadCart={loadCart}/>} />                 {/* Define route for HomePage path="/" same as index */}
+      <Route path='/checkout' element={ <CheckoutPage cart={cart} loadCart={loadCart}/>} /> {/* Define route for CheckoutPage path="/checkout" */} 
       <Route path='/orders' element={ <OrdersPage cart={cart} />} />              {/* Define route for Orders path="/orders" */}
       <Route path='/tracking' element={ <TrackingPage/>} />           {/* Define route for Tracking path="/tracking" */}      
     </Routes>

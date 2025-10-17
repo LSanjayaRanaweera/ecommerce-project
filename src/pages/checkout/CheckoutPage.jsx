@@ -6,7 +6,7 @@ import "./checkout-header.css";
 import "./CheckoutPage.css";
 
 
-export function CheckoutPage({ cart }) {
+export function CheckoutPage({ cart, loadCart }) {
   // Accept cart prop passed from App.jsx to generate HTML dynamically
 
   const [deliveryOptions, setDeliveryOptions] = useState([]); //To store delivery options fetched from backend
@@ -23,7 +23,8 @@ export function CheckoutPage({ cart }) {
     };
 
     fetchCheckoutData();
-  }, []);
+  }, [cart]);          
+  //Everytime the value of cart changes, it will run useEffect and update the paymentSummary, e.g. everytime we change delivery option
 
   return (
     <>
@@ -56,9 +57,10 @@ export function CheckoutPage({ cart }) {
         <div className="page-title">Review your order</div>
 
         <div className="checkout-grid">
-          <OrderSummary cart={cart} deliveryOptions={deliveryOptions} />{" "}       {/* Pass cart and deliveryOptions as props to OrderSummary component */}
-
-          <PaymentSummary paymentSummary={paymentSummary} />                        {/* Pass paymentSummary as prop to PaymentSummary component */}
+          {/* Pass cart, deliveryOptions and loadCart as props to OrderSummary component */}
+          <OrderSummary cart={cart} deliveryOptions={deliveryOptions} loadCart={loadCart}/> 
+          {/* Pass paymentSummary as prop to PaymentSummary component */}
+          <PaymentSummary paymentSummary={paymentSummary} />                                
 
         </div>
       </div>
