@@ -60,7 +60,7 @@ export function CheckoutPage({ cart, loadCart }) {
           {/* Pass cart, deliveryOptions and loadCart as props to OrderSummary component */}
           <OrderSummary cart={cart} deliveryOptions={deliveryOptions} loadCart={loadCart}/> 
           {/* Pass paymentSummary as prop to PaymentSummary component */}
-          <PaymentSummary paymentSummary={paymentSummary} />                                
+          <PaymentSummary paymentSummary={paymentSummary} loadCart={loadCart}/>                                
 
         </div>
       </div>
