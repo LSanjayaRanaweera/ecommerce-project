@@ -21,18 +21,18 @@ export function Product({ product, loadCart }) {
   return (
     <div className="product-container">
       <div className="product-image-container">
-        <img className="product-image"
-          data-testid="product-image"                
-          src={product.image} />                                              {/*"data-testid" attribute is SPECIFICALLY added during integration testing*/}
+        <img className="product-image"                         
+          src={product.image} 
+          data-testid="product-image" />                      {/*"data-testid" attribute is SPECIFICALLY added during integration testing*/}
       </div>
 
       <div className="product-name limit-text-to-2-lines">{product.name}</div>
 
       <div className="product-rating-container">
         <img
-          className="product-rating-stars"
-          data-testid="product-rating-stars-image"
-          src={`images/ratings/rating-${product.rating.stars * 10}.png`} />   {/*"data-testid" attribute is SPECIFICALLY added during integration testing*/}
+          className="product-rating-stars"          
+          src={`images/ratings/rating-${product.rating.stars * 10}.png`} 
+          data-testid="product-rating-stars-image"/>          {/*"data-testid" attribute is SPECIFICALLY added during integration testing*/}
         <div className="product-rating-count link-primary">
           {product.rating.count}
         </div>
@@ -65,15 +65,17 @@ export function Product({ product, loadCart }) {
         Added
       </div>
 
-      <button className="add-to-cart-button button-primary" onClick={AddToCart}>
+      <button className="add-to-cart-button button-primary" 
+        onClick={AddToCart}
+        data-testid="add-to-cart-button">                     {/*"data-testid" attribute is SPECIFICALLY added to test user interactions during integration testing*/}
         Add to Cart
       </button>
     </div>
   );
 }
 /*
-This componenet was created to implement useState Hook to update the quantity of the item being added
-Each product was in an iterating loop (.map) in ProductGrid component >> unable to add useState to iterating loop per React convention
-Hence we create a single product component here and implement the useState outside of the iteration.
+This illustrates a single <Product /> componenet of the Application and we can implement useState Hook to update the quantity of the items being added.
+Each product was in an iterating loop (.map) in ProductGrid component >> NOTE: "NOT able to add useState to an iterating loop" per React convention
+We are ONLY creating a single <Product /> component here. Hence we can implement useState per React convention (i.e., outside of an iterating loop).
 Afterwards implement this component to the iterartion loop to satisfy React convention plus implemnt use state on each product
 */
