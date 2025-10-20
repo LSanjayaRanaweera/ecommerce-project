@@ -19,11 +19,12 @@ export function Product({ product, loadCart }) {
     setQuantity(quantitySelected); // update state of quantity
   };
   return (
-    <div className="product-container">
+    <div className="product-container"
+      data-testid="product-container">                        {/*"data-testid" attribute is SPECIFICALLY added during integration testing in HomePage.test.jsx*/}
       <div className="product-image-container">
         <img className="product-image"                         
           src={product.image} 
-          data-testid="product-image" />                      {/*"data-testid" attribute is SPECIFICALLY added during integration testing*/}
+          data-testid="product-image" />                      {/*"data-testid" attribute is SPECIFICALLY added during integration testing in Product.test.jsx*/}
       </div>
 
       <div className="product-name limit-text-to-2-lines">{product.name}</div>
@@ -32,7 +33,7 @@ export function Product({ product, loadCart }) {
         <img
           className="product-rating-stars"          
           src={`images/ratings/rating-${product.rating.stars * 10}.png`} 
-          data-testid="product-rating-stars-image"/>          {/*"data-testid" attribute is SPECIFICALLY added during integration testing*/}
+          data-testid="product-rating-stars-image"/>          {/*"data-testid" attribute is SPECIFICALLY added during integration testing in Product.test.jsx*/}
         <div className="product-rating-count link-primary">
           {product.rating.count}
         </div>
