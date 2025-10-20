@@ -1,4 +1,4 @@
-import { it, expect, describe, vi } from 'vitest';
+import { it, expect, describe, vi, beforeEach } from 'vitest';
 import { render, screen} from '@testing-library/react';         //"render" renders the testing component and "screen" checks it in a fake webpage (a simulation)
 import userEvent from '@testing-library/user-event';            //simulate realistic user interactions in tests — e.g., typing, clicking, hovering etc.
 import axios from 'axios';
@@ -7,10 +7,17 @@ import { Product } from './Product';
 vi.mock('axios');               //Simulates an entire node package -axios in the test environment/fake version of axios and will not contact the backend
 
 describe('Product component', () => {
-    //A. SCREEN DISPLAY -- Each test will be checked with .screen implement << fake display of <Product />
-    it('display the product details corretly', () => {
+    let product;
+
+    let loadCart;
+
+    //The "beforeEach" method is called a TEST HOOK.
+    //It recreate a fresh copy of all the variables implemented items within BEFORE each TEST. 
+    //Other commonly used Test Hooks >> afterEach(), beforeAll(), afterAll()
+    // The variables are DECLARED with 'let' instead of 'const' << they need to be refreshed before start of each test
+    beforeEach(() => {
         //Sample data is from starting-code/data/product.js and it is stored in a varible to plug in as the value for product prop in the render()
-        const product = {
+        product = {
             id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
             image: "images/products/athletic-cotton-socks-6-pairs.jpg",
             name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
@@ -23,8 +30,12 @@ describe('Product component', () => {
         };        
         //In the actual application, loadCart is implemented by an HTTP request to the backend. Here we will mock that request (create a fake version of that function)
         //To create a mock, import 'vi' from vitest (destructured above) 
-        const loadCart = vi.fn();
+        loadCart = vi.fn();
 
+    })
+    
+    //A. SCREEN DISPLAY -- Each test will be checked with .screen implement << fake display of <Product />
+    it('display the product details corretly', () => {   
         //Implement the testing component with its props within the render function. <Product /> has two props >> product and loadCart 
         render(<Product product={product} loadCart={loadCart}/>);    
         //NOTE: This setup will render a <Product /> in a fake webpage
@@ -41,7 +52,7 @@ describe('Product component', () => {
 
         //3.Check product image is displayed correctly. NOTE: However we cannot implement a screen.getByText() for that. 
         //Instead we can check a immage attribute >> For that, assign a new <image> attribute in <Product /> called, data-testId="product-image" to be tested.
-//Is this fake attribute get pushed upon deployment???        
+//Is this fake attribute get pushed during deployment???        
         expect(
             screen.getByTestId('product-image')
         ).toHaveAttribute('src', 'images/products/athletic-cotton-socks-6-pairs.jpg');
@@ -59,20 +70,6 @@ describe('Product component', () => {
 
     //B. USER INTERACTIONS
     it('adds a product to the cart', async () => {   
-        //This also requires a product, a loadcart and a render of <Product />     
-        const product = {
-            id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-            image: "images/products/athletic-cotton-socks-6-pairs.jpg",
-            name: "Black and Gray Athletic Cotton Socks - 6 Pairs",
-            rating: {
-                stars: 4.5,
-                count: 87
-            },
-            priceCents: 1090,
-            keywords: ["socks", "sports", "apparel"]
-        };        
-
-        const loadCart = vi.fn();                   //Fake function to avoid making actual HTTP requests to server
 
         render(<Product product={product} loadCart={loadCart}/>);                           
     
@@ -95,3 +92,5 @@ describe('Product component', () => {
         expect(loadCart).toHaveBeenCalled();
     })
 });
+/*
+DESCRIBE each function/object imported above */
